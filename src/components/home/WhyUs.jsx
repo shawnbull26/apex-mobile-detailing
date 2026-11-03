@@ -69,7 +69,7 @@ export function WhyUs() {
             </Card>
           ))}
 
-          <li {...reveal(2)} className="hidden md:col-span-2 md:block lg:col-span-1">
+          <li {...reveal(2)} className="hidden md:block lg:col-span-2">
             <ImageSlot image={images.wheels} className="h-full min-h-56 w-full rounded-4xl" />
           </li>
         </ul>

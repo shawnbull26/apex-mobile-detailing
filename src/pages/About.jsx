@@ -30,7 +30,7 @@ const values = [
 ]
 
 const facts = [
-  { value: 'Owner-operated', label: 'The person you book with is the person who shows up' },
+  { value: 'Owner-operated', label: 'You’ll talk to the owner, not a call center' },
   { value: 'Self-contained', label: 'Our own water, power and supplies on every job' },
   { value: 'Fully insured', label: 'Peace of mind at your home or your office' },
 ]

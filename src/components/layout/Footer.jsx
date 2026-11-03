@@ -79,7 +79,7 @@ export function Footer() {
             ) : (
               <span className="font-medium text-white">{business.credit.author}</span>
             )}{' '}
-            · © {year}
+            · <span suppressHydrationWarning>© {year}</span>
           </p>
         </Container>
       </div>

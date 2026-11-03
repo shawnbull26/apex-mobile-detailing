@@ -81,6 +81,14 @@
   }
 }
 
+/* Never print sections that haven't been scrolled to yet as blank space. */
+@media print {
+  .js [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* Soft dotted texture for dark green surfaces */
 @utility grain {
   background-image: radial-gradient(rgb(255 255 255 / 0.06) 1px, transparent 1px);

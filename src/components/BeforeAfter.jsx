@@ -31,7 +31,7 @@ export function BeforeAfter({ after, before, className = '' }) {
 
   return (
     <figure className={className}>
-      <div className="relative aspect-[4/5] overflow-hidden rounded-4xl bg-mist-200 sm:aspect-[16/9]">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-4xl bg-mist-200 sm:aspect-[16/9]">
         {img(after)}
         <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}>
           {img(beforeImage, simulated ? 'brightness-[0.78] contrast-[0.85] saturate-[0.55] sepia-[0.35]' : '')}
@@ -68,7 +68,7 @@ export function BeforeAfter({ after, before, className = '' }) {
           value={position}
           onChange={(e) => setPosition(Number(e.target.value))}
           aria-valuetext={`${position}% before`}
-          className="peer absolute inset-0 size-full cursor-ew-resize opacity-0"
+          className="peer absolute inset-0 size-full cursor-ew-resize touch-pan-y opacity-0"
         />
         <div
           aria-hidden="true"

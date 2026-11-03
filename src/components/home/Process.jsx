@@ -17,7 +17,7 @@ const steps = [
   },
   {
     title: 'See it, then pay',
-    body: 'We walk around the car together when we’re done. Only once you’re happy do you pay, by card, Apple Pay or Zelle.',
+    body: 'We walk around the car together when we’re done. Only once you’re happy do you pay, by card, Apple Pay, Google Pay or Zelle.',
   },
 ]
 
