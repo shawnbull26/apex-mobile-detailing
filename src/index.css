@@ -1,0 +1,88 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque Variable', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+
+  /* Deep forest greens (text + dark surfaces) */
+  --color-ink-950: #0f2a1f;
+  --color-ink-900: #163a2b;
+  --color-ink-800: #1f4a37;
+  --color-ink-700: #2e5e48;
+  --color-ink-600: #50705f;
+  --color-ink-400: #8ba397;
+  --color-ink-300: #b9ccc1;
+
+  /* Fresh lime accent. 500 for fills, 600 for small text on light backgrounds */
+  --color-accent-300: #e3f7b5;
+  --color-accent-400: #c8ec7a;
+  --color-accent-500: #b4e05a;
+  --color-accent-600: #557f16;
+
+  /* Warm sage off-whites */
+  --color-mist-50: #f6f8f3;
+  --color-mist-100: #edf2ea;
+  --color-mist-200: #dce5d8;
+
+  --radius-4xl: 2rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-mist-50 font-sans text-ink-900 antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tight text-balance;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent-600;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+}
+
+/*
+  Scroll reveal. Elements with [data-reveal] start hidden only when JS is on
+  (the `js` class is set in index.html) and motion is allowed; useReveal()
+  adds [data-revealed] as they enter the viewport.
+*/
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .js [data-reveal][data-revealed] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Soft dotted texture for dark green surfaces */
+@utility grain {
+  background-image: radial-gradient(rgb(255 255 255 / 0.06) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
