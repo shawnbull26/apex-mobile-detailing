@@ -4,7 +4,7 @@ A marketing site for a mobile car detailing business serving Northern Virginia a
 
 > **Concept project.** Apex Mobile Detailing is a fictional business. The reviews, phone number, owner story and pricing are illustrative, and the site says so in its footer.
 
-**Live demo:** _add your Netlify URL here_ · **Code:** [github.com/shawnbull26/apex-mobile-detailing](https://github.com/shawnbull26/apex-mobile-detailing) · **Case study:** [docs/CASE_STUDY.md](docs/CASE_STUDY.md)
+**Live demo:** [apex-mobile-detailing-example.netlify.app](https://apex-mobile-detailing-example.netlify.app) · **Code:** [github.com/shawnbull26/apex-mobile-detailing](https://github.com/shawnbull26/apex-mobile-detailing) · **Case study:** [docs/CASE_STUDY.md](docs/CASE_STUDY.md)
 
 ![Home page on desktop](docs/screenshots/home-desktop.jpg)
 

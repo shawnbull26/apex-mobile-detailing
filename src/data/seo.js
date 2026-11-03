@@ -1,7 +1,7 @@
 import { business } from './business'
 
 // Update to the deployed URL (used for canonical links, Open Graph and the sitemap).
-export const siteUrl = 'https://apex-mobile-detailing.netlify.app'
+export const siteUrl = 'https://apex-mobile-detailing-example.netlify.app'
 
 export const pages = {
   '/': {
