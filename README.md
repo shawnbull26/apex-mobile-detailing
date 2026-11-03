@@ -22,16 +22,16 @@ A marketing site for a mobile car detailing business serving Northern Virginia a
 
 ## Lighthouse
 
-Mobile emulation, measured against the local production build (`npm run preview`):
+Measured on the live Netlify site (Lighthouse 12), mobile / desktop:
 
 | Page | Performance | Accessibility | Best practices | SEO |
 | --- | --- | --- | --- | --- |
-| Home | 88 | 100 | 100 | 100 |
-| Services | 95 | 100 | 100 | 100 |
-| About | 97 | 100 | 100 | 100 |
-| Contact | 98 | 100 | 100 | 100 |
+| Home | 98 / 100 | 100 / 100 | 100 / 100 | 100 / 100 |
+| Services | 98 / 100 | 100 / 100 | 100 / 100 | 100 / 100 |
+| About | 97 / 100 | 100 / 100 | 100 / 100 | 100 / 100 |
+| Contact | 99 / 100 | 100 / 100 | 100 / 100 | 100 / 100 |
 
-Scores on Netlify should be similar or better because of CDN compression and caching.
+SEO was measured with search indexing switched on. The live demo now asks search engines not to list it, because the business is fictional (see below), so a fresh Lighthouse run reports that one SEO check as failing.
 
 ## Tech stack
 
@@ -64,14 +64,15 @@ src/
   hooks/            usePageMeta, useReveal
   pages/            Home, Services, About, Contact, NotFound
   entry-server.jsx  Server render entry used by the prerender step
-scripts/prerender.js  Writes per-route HTML, 404.html, sitemap.xml, robots.txt
+scripts/prerender.js  Writes per-route HTML, 404.html, robots.txt (and sitemap.xml when indexing is on)
 ```
 
 ## Deploying to Netlify
 
 1. Push the repo to GitHub and import it in Netlify. `netlify.toml` already sets the build command and publish folder.
 2. Set `siteUrl` in `src/data/seo.js` to your Netlify URL, so canonical links, social tags and the sitemap point to the right place.
-3. After the first deploy, submit the booking form once. Submissions appear under **Forms → contact** in Netlify.
+3. For a real business, set `allowIndexing` to `true` in the same file. This demo keeps it `false`, which adds a `noindex` tag to every page and skips the sitemap, so a fictional business doesn't show up in local search results.
+4. Turn on form detection under **Forms** in Netlify, redeploy, then submit the booking form once. Submissions appear under **Forms → contact** in Netlify.
 
 ## Customizing
 
@@ -81,7 +82,7 @@ scripts/prerender.js  Writes per-route HTML, 404.html, sitemap.xml, robots.txt
 | Services, prices, add-ons | `src/data/services.js` |
 | Reviews | `src/data/testimonials.js` |
 | Photos | `public/images/` + `src/data/images.js` |
-| Page titles and descriptions, site URL | `src/data/seo.js` |
+| Page titles and descriptions, site URL, search indexing | `src/data/seo.js` |
 | Colors and fonts | `src/index.css` (`@theme`) |
 
 ## Photo credits

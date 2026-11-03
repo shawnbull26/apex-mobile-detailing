@@ -3,6 +3,10 @@ import { business } from './business'
 // Update to the deployed URL (used for canonical links, Open Graph and the sitemap).
 export const siteUrl = 'https://apex-mobile-detailing-example.netlify.app'
 
+// This is a concept site for a fictional business, so ask search engines not to
+// list it. Set to true for a real client launch (also restores the sitemap).
+export const allowIndexing = false
+
 export const pages = {
   '/': {
     title: 'Mobile Car Detailing in Northern Virginia & the DMV',

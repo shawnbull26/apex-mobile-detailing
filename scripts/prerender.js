@@ -8,7 +8,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const dist = join(root, 'dist')
 const serverDir = join(root, 'dist-server')
 
-const { render, pages, notFound, fullTitle, siteUrl, localBusinessSchema } = await import(
+const { render, pages, notFound, fullTitle, siteUrl, allowIndexing, localBusinessSchema } = await import(
   pathToFileURL(join(serverDir, 'entry-server.js')).href
 )
 // Preload the Latin font files so text paints in the right font sooner.
@@ -33,7 +33,8 @@ function headTags({ title, description, path, noindex }) {
   const tags = [
     `<title>${escape(fullTitle(title))}</title>`,
     `<meta name="description" content="${escape(description)}" />`,
-    noindex ? '<meta name="robots" content="noindex" />' : `<link rel="canonical" href="${url}" />`,
+    noindex || !allowIndexing ? '<meta name="robots" content="noindex" />' : null,
+    noindex ? null : `<link rel="canonical" href="${url}" />`,
     '<meta property="og:type" content="website" />',
     '<meta property="og:site_name" content="Apex Mobile Detailing" />',
     `<meta property="og:title" content="${escape(fullTitle(title))}" />`,
@@ -45,7 +46,7 @@ function headTags({ title, description, path, noindex }) {
     '<meta name="twitter:card" content="summary_large_image" />',
     `<script type="application/ld+json">${JSON.stringify(localBusinessSchema)}</script>`,
   ]
-  return tags.join('\n    ')
+  return tags.filter(Boolean).join('\n    ')
 }
 
 function page(meta, path) {
@@ -65,15 +66,21 @@ for (const [path, meta] of Object.entries(pages)) {
 await writeFile(join(dist, '404.html'), page({ ...notFound, noindex: true }, '/404'))
 console.log('prerendered 404.html')
 
-const today = new Date().toISOString().slice(0, 10)
-const urls = Object.keys(pages)
-  .map((p) => `  <url><loc>${publicUrl(p)}</loc><lastmod>${today}</lastmod></url>`)
-  .join('\n')
-await writeFile(
-  join(dist, 'sitemap.xml'),
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
-)
-await writeFile(join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`)
-console.log('wrote sitemap.xml and robots.txt')
+if (allowIndexing) {
+  const today = new Date().toISOString().slice(0, 10)
+  const urls = Object.keys(pages)
+    .map((p) => `  <url><loc>${publicUrl(p)}</loc><lastmod>${today}</lastmod></url>`)
+    .join('\n')
+  await writeFile(
+    join(dist, 'sitemap.xml'),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
+  )
+  await writeFile(join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`)
+  console.log('wrote sitemap.xml and robots.txt')
+} else {
+  // Crawling stays allowed so search engines can read each page's noindex tag.
+  await writeFile(join(dist, 'robots.txt'), '# Concept site: pages carry a noindex tag.\nUser-agent: *\nAllow: /\n')
+  console.log('indexing disabled: wrote robots.txt, skipped sitemap.xml')
+}
 
 await rm(serverDir, { recursive: true, force: true })

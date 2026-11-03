@@ -11,4 +11,4 @@ export function render(url) {
   )
 }
 
-export { pages, notFound, fullTitle, siteUrl, localBusinessSchema } from './data/seo'
+export { pages, notFound, fullTitle, siteUrl, allowIndexing, localBusinessSchema } from './data/seo'

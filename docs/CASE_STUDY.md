@@ -41,13 +41,15 @@ Mobile detailers live on phone calls and booking requests. Their customers are b
 ## Engineering
 
 - **React + Vite + Tailwind**, with all content in small data files (`src/data/`), so a real business could update prices or hours without touching layout code.
-- **Pre-rendering**: a build step renders each route to static HTML with its own meta tags, social tags and structured data (schema.org `AutoWash`), plus `sitemap.xml`, `robots.txt` and a 404 page. React hydrates on top.
+- **Pre-rendering**: a build step renders each route to static HTML with its own meta tags, social tags and structured data (schema.org `AutoWash`), plus `robots.txt`, a 404 page and (when indexing is on) `sitemap.xml`. React hydrates on top.
 - **Performance**: self-hosted variable fonts with preloads, responsive WebP images in three sizes, lazy loading below the fold, and long-lived cache headers for hashed assets.
 - **Accessibility**: skip link, landmarks, a focus-trapped mobile menu, visible focus styles, labelled inputs with `aria-invalid` and hints, a keyboard-operable before/after slider, and reveal animations that turn off under `prefers-reduced-motion`.
 
 ## Results
 
-Lighthouse on mobile emulation: **100** for accessibility, best practices and SEO on every page; performance between **88 and 98**.
+Lighthouse on the live site: **100** for accessibility, best practices and SEO on every page, with performance of **97–99 on mobile** and **100 on desktop**. Largest content appears in about 2.3 seconds on a throttled mobile connection and 0.5 seconds on desktop.
+
+Because the business is fictional, the live demo asks search engines not to list it; a single setting turns indexing and the sitemap back on for a real client.
 
 ## What I'd do next
 
