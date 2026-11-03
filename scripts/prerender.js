@@ -24,8 +24,12 @@ const template = (await readFile(join(dist, 'index.html'), 'utf8')).replace(
 
 const escape = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
 
+// Pages are written as <path>/index.html, which Netlify serves at <path>/
+// (it 301-redirects <path> there), so canonical URLs carry the trailing slash.
+const publicUrl = (path) => `${siteUrl}${path === '/' ? '/' : `${path}/`}`
+
 function headTags({ title, description, path, noindex }) {
-  const url = `${siteUrl}${path === '/' ? '/' : path}`
+  const url = publicUrl(path)
   const tags = [
     `<title>${escape(fullTitle(title))}</title>`,
     `<meta name="description" content="${escape(description)}" />`,
@@ -63,7 +67,7 @@ console.log('prerendered 404.html')
 
 const today = new Date().toISOString().slice(0, 10)
 const urls = Object.keys(pages)
-  .map((p) => `  <url><loc>${siteUrl}${p}</loc><lastmod>${today}</lastmod></url>`)
+  .map((p) => `  <url><loc>${publicUrl(p)}</loc><lastmod>${today}</lastmod></url>`)
   .join('\n')
 await writeFile(
   join(dist, 'sitemap.xml'),
